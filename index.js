@@ -1,12 +1,10 @@
 const express = require("express")
+const userController = require("./Controllers/userController")
 
 const app = express()
+
 app.use(express.json())
-
-app.get("/user", (req, res) => {
-    res.send("Hello API")
-})
-
+app.use("/user",userController)
 
 
 
@@ -16,12 +14,6 @@ app.get("/product/:id", (req, res) => {
     res.send("API works")
 })
 
-app.post("/user/register", (req, res) => {
-    let data = req.body
-    console.log(data)
-    res.send("API works")
-
-})
 
 
 
