@@ -1,16 +1,19 @@
 const express = require("express")
+const mongoose = require("./config/db")
+
 const userController = require("./Controllers/userController")
+const productController = require("./Controllers/productController")
+const categoryController = require("./Controllers/categoryController")
+const orderController = require("./Controllers/orderController")
 
 const app = express()
 
 app.use(express.json())
-app.use("/user", userController)
 
-app.get("/product/:id", (req, res) => {
-    let productId = req.params.id
-    console.log("product id " + productId)
-    res.send("API works")
-})
+app.use("/user", userController)
+app.use("/product", productController)
+app.use("/category", categoryController)
+app.use("/order", orderController)
 
 app.listen(3000, () => {
     console.log("server started")
