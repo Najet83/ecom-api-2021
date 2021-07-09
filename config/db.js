@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 mongoose.connect("mongodb+srv://root:root@cluster0.elyfd.mongodb.net/ecom?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex:true
+    useCreateIndex:true,
+    useFindAndModify:false
 })
     .then(() => {
 
