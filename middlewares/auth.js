@@ -3,10 +3,9 @@ const jwt = require("jsonwebtoken")
 let isAdmin = (req, res, next) => {
 
     try {
-        console.log(req.get("Authorization"))
-
         let token = req.get("Authorization")
         let decryptedToken = jwt.verify(token, "SECRETKEY")
+        console.log(decryptedToken);
         if (decryptedToken.role == "admin") {
             next()
         }
