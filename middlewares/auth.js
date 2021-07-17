@@ -10,10 +10,12 @@ let isAdmin = (req, res, next) => {
             next()
         }
         else {
+            console.log( "You are not authorized");
             res.status(400).send({ message: "You are not authorized" })
         }
     }
     catch (e) {
+        console.log( "You are not authorized");
         res.status(400).send(e)
     }
 }

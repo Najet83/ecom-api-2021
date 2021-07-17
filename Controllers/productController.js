@@ -1,37 +1,46 @@
 const express = require("express")
 const Product = require("./../models/product")
+const Category = require("./../models/category")
 
 const app = express()
 
 
-app.get("/one/:id", (req, res) => {
-    let productId = req.params.id
+app.get("/one/:id", async (req, res) => {
 
-    Product.findOne({ _id: productId })
-        .then((product) => {
-            res.status(200).send({
-                message: "product info are :",
-                product: product
-            })
+    try {
+        let productId = req.params.id
+
+        let product = await Product.findOne({ _id: productId })
+
+        let category = await Category.findOne({ _id: product.categoryID })
+
+        res.status(200).send({
+            ...product._doc,
+            categoryName: category.name
         })
-        .catch((e) => {
-            res.status(400).send({
-                error: e
-            })
-        })
+    }
+    catch (e) {
+        res.status(400).send({ error: e })
+    }
 })
 
-app.get("/all", (req, res) => {
+app.get("/all", async (req, res) => {
+    try {
+        let products = await Product.find()
 
-    Product.find()
-        .then((products) => {
-            res.status(200).send(products)
-        })
-        .catch((e) => {
-            res.status(400).send({
-                error: e
-            })
-        })
+        for (let i = 0; i < products.length; i++) {
+
+            let category = await Category.findOne({ _id: products[i].categoryID })
+            products[i] = { ...products[i]._doc, categoryName: category.name }
+        }
+
+        res.status(200).send(products)
+
+
+    }
+    catch (e) {
+        res.status(400).send({ error: e })
+    }
 })
 
 

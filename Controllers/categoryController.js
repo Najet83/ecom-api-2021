@@ -22,13 +22,15 @@ app.get("/one/:id", (req, res) => {
 
 })
 
-app.get("/all", (req, res) => {
+app.get("/all",isAdmin, (req, res) => {
 
     Category.find()
         .then((categories) => {
+            console.log(categories);
             res.status(200).send(categories)
         })
         .catch((e) => {
+            console.log(e);
             res.status(400).send({
                 error: e
             })
