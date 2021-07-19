@@ -8,9 +8,13 @@ const categoryController = require("./Controllers/categoryController")
 const orderController = require("./Controllers/orderController")
 
 const app = express()
-app.use(cors())
-app.use(express.json())
+app.use(cors()) // qui permet les api accessibles par d'autres serveurs
+app.use(express.json())// permet de récupérer des données sous format json
+app.use(express.urlencoded({
+    extended: true
+})); // permet de récupérer des fichiers
 
+app.use(express.static('./public')); // fonction qui permet de rendre le dossier accessible depuis d'autres serveurs exple front-end
 
 app.use("/user", userController)
 app.use("/product", productController)
